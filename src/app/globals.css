@@ -1,26 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Premium Brand Palette - Red-Led Enterprise Cybersecurity */
+  --color-deep-black: #05060A;
+  --color-midnight-navy: #0B0F1A;
+  --color-dark-slate: #111827;
+  --color-graphite: #1A1F2E;
+  
+  --color-samurai-red: #E11D48;
+  --color-deep-crimson: #BE123C;
+  
+  --color-ice-blue: #38BDF8;
+  --color-cyan-edge: #22D3EE;
+  --color-soft-indigo: #6366F1;
+  --color-silver-gray: #94A3B8;
+  --color-off-white: #E5E7EB;
+
+  --color-soft-white: #F8FAFC;
+  --color-deep-navy-text: #0F172A;
+  
+  --color-steel-silver: #94A3B8;
+  --color-cloud-gray: #F4F7FA;
+  --color-compliance-green: #00C48C;
+  --color-warning-amber: #FFB020;
+  --color-threat-red: #E11D48;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    background-color: var(--color-soft-white);
+    color: var(--color-deep-navy-text);
+  }
+
+  .dark {
+    background-color: var(--color-deep-black);
+    color: var(--color-off-white);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    @apply font-display tracking-tight;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .glass {
+    @apply backdrop-blur-md bg-white/10 border border-white/10;
+  }
+
+  .dark .glass {
+    @apply backdrop-blur-xl bg-midnight-navy/40 border border-white/5;
+  }
+
+  .btn-primary {
+    @apply px-8 py-3 bg-samurai-red text-white rounded-full font-medium transition-all hover:bg-deep-crimson hover:scale-105 active:scale-95 shadow-lg shadow-samurai-red/10 cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-3 border border-deep-navy-text/10 dark:border-white/10 rounded-full font-medium transition-all hover:bg-samurai-red/5 active:scale-95 cursor-pointer;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-6;
+  }
+}
+
+.lenis.lenis-smooth {
+  height: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
