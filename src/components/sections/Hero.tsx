@@ -3,12 +3,12 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
 import Magnetic from "@/components/Magnetic";
-const stats = [
-  { label: 'Founded', value: 2010 },
-  { label: 'Years of Expertise', value: 15, suffix: '+' },
-  { label: 'Countries / Global Presence', value: 5, suffix: '' },
-  { label: 'Organizations Served', value: 2800, suffix: '+' },
-];
+// const stats = [
+//   { label: 'Founded', value: 2010 },
+//   { label: 'Years of Expertise', value: 15, suffix: '+' },
+//   { label: 'Countries / Global Presence', value: 5, suffix: '' },
+//   { label: 'Organizations Served', value: 2800, suffix: '+' },
+// ];
 
 const rotatingPhrases = [
   'Cybersecurity',
@@ -26,7 +26,36 @@ const Hyperspeed = dynamic(
   }
 );
 
-export default function Hero() {
+interface HeroStat {
+  label: string;
+  value: number;
+  suffix?: string;
+}
+
+
+interface HeroProps {
+  heroTitleLine1: string;
+  heroTitleLine2: string;
+  heroSubtitle: string;
+
+  heroButton1Text: string;
+  heroButton1Link: string;
+
+  heroButton2Text: string;
+  heroButton2Link: string;
+
+  heroStats: HeroStat[];
+}
+export default function Hero({
+  heroTitleLine1,
+  heroTitleLine2,
+  heroSubtitle,
+  heroButton1Text,
+  heroButton1Link,
+  heroButton2Text,
+  heroButton2Link,
+  heroStats,
+}: HeroProps) {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
@@ -125,13 +154,16 @@ export default function Hero() {
           {/* Headline */}
           <motion.h1
             className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 max-w-5xl leading-[1.1] text-white"
-            initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 1, delay: 0.2 }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
           >
-            Your Trusted Partner in <br />
+            {heroTitleLine1 || "Your Trusted Partner in"}
+
+            <br />
+
             <span className="text-samurai-red italic font-light">
-              Digital Resilience & Innovation.
+              {heroTitleLine2 ||
+                "Digital Resilience & Innovation"}
             </span>
           </motion.h1>
 
@@ -142,8 +174,7 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.4 }}
             className="text-xl md:text-2xl text-steel-silver/60 max-w-3xl mx-auto mb-12 font-light leading-relaxed"
           >
-            Empowering enterprises to thrive in an ever-evolving digital landscape through
-            comprehensive cybersecurity, IT excellence, and transformative technology solutions.
+            {heroSubtitle}
           </motion.p>
 
         </motion.div>
@@ -164,25 +195,25 @@ export default function Hero() {
                 })
               }
             >
-              Book a Briefing
+              {heroButton1Text}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </button>
           </Magnetic>
           <Magnetic>
             <button className="btn-secondary px-10 py-5 border-white/20 text-white hover:bg-white/5 backdrop-blur-md uppercase tracking-widest text-xs font-bold" onClick={() =>
-                document.getElementById("services")?.scrollIntoView({
-                  behavior: "smooth",
-                })
-              }
-              >
-              Explore Solutions
+              document.getElementById("services")?.scrollIntoView({
+                behavior: "smooth",
+              })
+            }
+            >
+              {heroButton2Text}
             </button>
           </Magnetic>
         </motion.div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 w-full max-w-5xl border-t border-white/5 pt-16">
-          {stats.map((stat, i) => (
+          {heroStats?.map((stat, i) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 20 }}

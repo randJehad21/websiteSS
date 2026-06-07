@@ -1,7 +1,25 @@
 "use client";
 import { motion } from 'motion/react';
 
-export default function About() {
+interface AboutProps {
+  aboutTag: string;
+  aboutTitleLine1: string;
+  aboutTitleHighlight: string;
+  aboutTitleLine2: string;
+  aboutQuote: string;
+  aboutContentLeft: string;
+  aboutContentRight: string;
+}
+
+export default function About({
+  aboutTag,
+  aboutTitleLine1,
+  aboutTitleHighlight,
+  aboutTitleLine2,
+  aboutQuote,
+  aboutContentLeft,
+  aboutContentRight,
+}: AboutProps) {
   return (
     <section
       id="about"
@@ -21,7 +39,7 @@ export default function About() {
           viewport={{ once: true }}
           className="text-[10px] uppercase tracking-[0.4em] font-bold text-samurai-red mb-6"
         >
-          Company Overview
+          {aboutTag}
         </motion.div>
 
         {/* Headline */}
@@ -31,8 +49,8 @@ export default function About() {
           viewport={{ once: true }}
           className="text-4xl md:text-6xl font-bold leading-[1.1] mb-10 dark:text-white"
         >
-          We Build <span className="text-samurai-red">Long-Term</span><br />
-          Partnerships.
+          {aboutTitleLine1} <span className="text-samurai-red">{aboutTitleHighlight}</span><br />
+          {aboutTitleLine2}
         </motion.h2>
 
         {/* Quote */}
@@ -43,7 +61,7 @@ export default function About() {
           className="glass border border-white/10 rounded-[2.5rem] p-10 md:p-14 mb-12"
         >
           <p className="text-xl md:text-2xl italic text-samurai-red font-light">
-            “Deliver excellence, nothing less.”
+            {aboutQuote}
           </p>
         </motion.div>
 
@@ -55,10 +73,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            Founded in Dubai in 2010 by industry experts, Samurai Systems has expanded
-            to five countries, delivering customer-focused IT solutions. We provide
-            high-quality enterprise systems while ensuring seamless integration across
-            back-office platforms and modern digital interfaces.
+            {aboutContentLeft}
           </motion.p>
 
           <motion.p
@@ -66,10 +81,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            Our team of architects, engineers, and consultants share one mission:
-            empower organizations to thrive in a fast-evolving digital world. From
-            securing critical infrastructure to modernizing IT operations, we align
-            technology with business outcomes — not complexity.
+            {aboutContentRight}
           </motion.p>
 
         </div>
